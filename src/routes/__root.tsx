@@ -116,7 +116,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <TooltipProvider>
+        <Sonner />
+        <LiveTicker />
+        <Outlet />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }
