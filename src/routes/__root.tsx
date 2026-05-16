@@ -7,6 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import LiveTicker from "@/components/LiveTicker";
 
 import appCss from "../styles.css?url";
 
@@ -72,14 +75,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Asi Moc — Kolik času jsi reálně strávil na TikToku?" },
+      { name: "description", content: "Nahraj svoje TikTok data a zjisti reálné statistiky." },
+      { name: "author", content: "Asi Moc" },
+      { property: "og:title", content: "Asi Moc — Tvoje TikTok realita" },
+      { property: "og:description", content: "Nahraj svoje TikTok data a zjisti reálné statistiky." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -113,7 +115,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <TooltipProvider>
+        <Sonner />
+        <LiveTicker />
+        <Outlet />
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }
