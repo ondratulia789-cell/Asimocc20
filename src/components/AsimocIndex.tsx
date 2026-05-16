@@ -23,7 +23,7 @@ import { Eye, Shield, Crown, Flame, Download, FileJson, Sparkles, Zap, Smile } f
 
 const STATS_KEY = "asimoc_stats";
 
-const Index = () => {
+const AsimocIndex = () => {
   const [stats, setStats] = useState<TikTokStats | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
