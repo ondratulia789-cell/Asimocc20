@@ -423,4 +423,4 @@ const AsimocIndex = () => {
   );
 };
 
-export default Index;
+export default AsimocIndex;
