@@ -31,7 +31,7 @@ const LockedStats = ({ averageDaily, totalMinutes, totalVideos }: LockedStatsPro
           Tvůj náhled zdarma
         </p>
         <div className="space-y-1">
-          <span className="block text-7xl sm:text-8xl font-display font-black gradient-text leading-none tracking-tighter">
+          <span className="block text-7xl sm:text-8xl font-display font-black gradient-text leading-none tracking-tighter blur-md select-none" style={{ filter: 'blur(8px)' }}>
             {totalMinutes.toLocaleString()}
           </span>
           <span className="block text-sm text-muted-foreground uppercase tracking-wide">
