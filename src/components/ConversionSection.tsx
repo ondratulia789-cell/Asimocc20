@@ -41,9 +41,9 @@ const FeatureRow = ({ f, accent = 'cyan' }: { f: typeof mainFeatures[0]; accent?
   const Icon = f.icon;
   const isCyan = accent === 'cyan';
   return (
-    <div className={`flex items-center gap-4 rounded-2xl bg-card/40 border px-4 py-3.5 ${isCyan ? 'border-neon-cyan/20' : 'border-neon-pink/20'}`}>
-      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-card/60 border ${isCyan ? 'border-neon-cyan/30' : 'border-neon-pink/30'}`}>
-        <Icon className={`h-4 w-4 ${isCyan ? 'text-neon-cyan' : 'text-neon-pink'}`} />
+    <div className={`flex items-center gap-4 rounded-2xl bg-card/40 border px-4 py-3.5 ${isCyan ? 'border-white/8' : 'border-white/8'}`}>
+      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-card/60 border ${isCyan ? 'border-white/12' : 'border-white/12'}`}>
+        <Icon className={`h-4 w-4 ${isCyan ? 'text-foreground/90' : 'text-foreground/70'}`} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-foreground">{f.title}</p>
@@ -82,7 +82,7 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
       {/* Bonus section */}
       <div className="space-y-4">
         <div className="flex items-center justify-center gap-2">
-          <Gift className="h-3.5 w-3.5 text-neon-cyan" />
+          <Gift className="h-3.5 w-3.5 text-foreground/90" />
           <p className="text-[11px] font-display font-semibold uppercase tracking-[0.15em] text-brand-gradient">
             + k tomu zdarma
           </p>
@@ -102,7 +102,7 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
           </p>
           <div className="flex items-center gap-0.5 ml-1">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} className="h-3 w-3 fill-neon-pink text-neon-pink" />
+              <Star key={i} className="h-3 w-3 fill-foreground/60 text-foreground/60" />
             ))}
           </div>
         </div>
@@ -112,11 +112,11 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
               const isCyan = i % 2 === 0;
               return (
               <CarouselItem key={i} className="pl-3 basis-[85%]">
-                <div className={`rounded-2xl border p-4 space-y-3 bg-card/40 ${isCyan ? 'border-neon-cyan/25' : 'border-neon-pink/25'}`}>
+                <div className={`rounded-2xl border p-4 space-y-3 bg-card/40 ${isCyan ? 'border-white/10' : 'border-white/10'}`}>
                   <div className="flex items-center gap-3">
                     <div
                       className="h-8 w-8 rounded-full flex items-center justify-center text-background text-xs font-bold"
-                      style={{ background: isCyan ? 'hsl(var(--neon-cyan))' : 'hsl(var(--neon-pink))' }}
+                      style={{ background: isCyan ? 'hsl(0 0% 96%)' : 'hsl(0 0% 75%)' }}
                     >
                       {r.avatar}
                     </div>
@@ -124,7 +124,7 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
                       <p className="text-sm font-semibold text-foreground">{r.name}</p>
                       <div className="flex gap-0.5">
                         {[...Array(r.stars)].map((_, j) => (
-                          <Star key={j} className={`h-3 w-3 ${isCyan ? 'fill-neon-cyan text-neon-cyan' : 'fill-neon-pink text-neon-pink'}`} />
+                          <Star key={j} className={`h-3 w-3 ${isCyan ? 'fill-foreground/80 text-foreground/80' : 'fill-foreground/60 text-foreground/60'}`} />
                         ))}
                         {[...Array(5 - r.stars)].map((_, j) => (
                           <Star key={j} className="h-3 w-3 text-muted-foreground/30" />
@@ -143,8 +143,8 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
 
       {/* Urgency */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full border border-neon-cyan/30 bg-card/60 px-4 py-1.5">
-          <Zap className="h-3.5 w-3.5 text-neon-cyan" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-card/60 px-4 py-1.5">
+          <Zap className="h-3.5 w-3.5 text-foreground/90" />
           <span className="text-xs font-medium text-foreground/80">Výsledky do 10 sekund</span>
         </div>
         <p className="text-xs text-muted-foreground">
@@ -153,7 +153,7 @@ const ConversionSection = ({ onScrollToUpload }: ConversionSectionProps) => {
       </div>
 
       {/* CTA */}
-      <div className="rounded-3xl border border-neon-cyan/30 bg-card/40 p-5 text-center space-y-3">
+      <div className="rounded-3xl border border-white/12 bg-card/40 p-5 text-center space-y-3">
         <h3 className="text-lg font-display font-bold text-foreground">
           Připraven na svou <span className="text-cyan-glow">realitu</span>?
         </h3>

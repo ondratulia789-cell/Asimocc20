@@ -70,13 +70,13 @@ const LiveTicker = () => {
         key={current.id}
         className={`pointer-events-auto inline-flex items-center gap-2 px-3.5 py-2 rounded-full
           bg-background/40 backdrop-blur-xl border border-white/10
-          shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4),0_0_18px_-6px_hsl(var(--neon-cyan)/0.35),0_0_22px_-8px_hsl(var(--neon-pink)/0.3)]
+          shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4),0_0_24px_-6px_rgba(255,255,255,0.25)]
           transition-all duration-[600ms] ease-out
           ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}
       >
         <span className="relative flex h-1.5 w-1.5 shrink-0">
-          <span className="absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--neon-cyan))] opacity-60 animate-ping" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(var(--neon-cyan))]" />
+          <span className="absolute inline-flex h-full w-full rounded-full bg-foreground/80 opacity-60 animate-ping" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-foreground/80" />
         </span>
         <span className="text-[11px] leading-tight text-foreground/85 font-medium tracking-tight truncate">
           <span className="mr-1">{current.icon}</span>

@@ -43,9 +43,9 @@ const Statistics = ({ totalMinutes, totalVideos, longestSession, averageDaily, p
   };
 
   const secondaryStats = [
-    { icon: Film, label: 'Videí', value: totalVideos.toLocaleString(), color: 'text-neon-pink' },
-    { icon: Flame, label: 'Nejdelší session', value: `${longestSession} min`, color: 'text-neon-purple' },
-    { icon: TrendingUp, label: 'Denně průměr', value: `${averageDaily.toFixed(0)} min`, color: 'text-neon-cyan' },
+    { icon: Film, label: 'Videí', value: totalVideos.toLocaleString(), color: 'text-foreground/80' },
+    { icon: Flame, label: 'Nejdelší session', value: `${longestSession} min`, color: 'text-foreground/65' },
+    { icon: TrendingUp, label: 'Denně průměr', value: `${averageDaily.toFixed(0)} min`, color: 'text-foreground' },
   ];
 
   const periodLabel = periodStart && periodEnd 
