@@ -44,7 +44,16 @@ const LockedStats = ({ averageDaily, totalMinutes, totalVideos }: LockedStatsPro
           </span>
         </div>
         <p className="text-sm text-foreground/80">
-          ...a <span className="font-display font-bold">{totalVideos.toLocaleString()}</span> videí.
+          ...a{" "}
+          <span
+            aria-hidden
+            className="inline-block font-display font-bold select-none"
+            style={{ filter: "blur(26px)", opacity: 0.5 }}
+          >
+            {totalVideos.toLocaleString()}
+          </span>
+          <span className="sr-only">zamčeno</span>{" "}
+          videí.
         </p>
       </div>
 
