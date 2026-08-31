@@ -52,69 +52,73 @@
 }
 
 :root {
-  /* Pure monochrome black */
-  --background: 0 0% 4%;
-  --foreground: 0 0% 98%;
+  /* Pure monochrome black — liquid glass */
+  --background: 0 0% 3%;
+  --foreground: 0 0% 97%;
 
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 98%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 97%;
 
   --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 98%;
+  --popover-foreground: 0 0% 97%;
 
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 5%;
+  --primary: 0 0% 96%;
+  --primary-foreground: 0 0% 4%;
 
   --secondary: 0 0% 12%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary-foreground: 0 0% 97%;
 
   --muted: 0 0% 10%;
-  --muted-foreground: 0 0% 58%;
+  --muted-foreground: 0 0% 55%;
 
   --accent: 0 0% 16%;
-  --accent-foreground: 0 0% 98%;
+  --accent-foreground: 0 0% 97%;
 
-  --destructive: 0 75% 55%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive: 0 0% 70%;
+  --destructive-foreground: 0 0% 6%;
 
-  --border: 0 0% 14%;
-  --input: 0 0% 14%;
-  --ring: 0 0% 60%;
+  --border: 0 0% 100%;
+  --input: 0 0% 18%;
+  --ring: 0 0% 70%;
 
-  --radius: 0.875rem;
+  --radius: 1.25rem;
 
-  --neon-cyan: 186 100% 60%;
-  --neon-pink: 340 100% 60%;
-  --neon-purple: 265 90% 70%;
+  /* Monochrome "accent" scale — kept under the same token names */
+  --neon-cyan: 0 0% 88%;
+  --neon-pink: 0 0% 72%;
+  --neon-purple: 0 0% 58%;
 
-  --gradient-text: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 70%));
-  --gradient-brand: linear-gradient(90deg, hsl(var(--neon-cyan)), hsl(var(--neon-pink)));
-  --gradient-card: linear-gradient(160deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
-  --gradient-soft-glow: radial-gradient(circle at 50% 0%, hsl(var(--neon-cyan) / 0.08), transparent 70%);
+  --gradient-text: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 55%));
+  --gradient-brand: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(0 0% 78%) 45%, hsl(0 0% 92%) 100%);
+  --gradient-card: linear-gradient(150deg, hsl(0 0% 100% / 0.07) 0%, hsl(0 0% 100% / 0.02) 45%, hsl(0 0% 100% / 0.045) 100%);
+  --gradient-soft-glow: radial-gradient(circle at 50% 0%, hsl(0 0% 100% / 0.10), transparent 70%);
 
-  --shadow-card: 0 1px 0 hsl(0 0% 100% / 0.04) inset, 0 8px 32px hsl(0 0% 0% / 0.5);
-  --shadow-glow-cyan: 0 0 24px hsl(var(--neon-cyan) / 0.35);
-  --shadow-glow-pink: 0 0 24px hsl(var(--neon-pink) / 0.35);
-  --shadow-glow-brand: 0 0 32px hsl(var(--neon-cyan) / 0.25), 0 0 48px hsl(var(--neon-pink) / 0.2);
+  --shadow-card:
+    inset 0 1px 0 hsl(0 0% 100% / 0.10),
+    inset 0 -1px 0 hsl(0 0% 100% / 0.04),
+    0 24px 60px -24px hsl(0 0% 0% / 0.9);
+  --shadow-glow-cyan: 0 0 40px hsl(0 0% 100% / 0.10);
+  --shadow-glow-pink: 0 0 40px hsl(0 0% 100% / 0.10);
+  --shadow-glow-brand: 0 10px 40px -12px hsl(0 0% 100% / 0.35);
 
-  --sidebar-background: 0 0% 4%;
+  --sidebar-background: 0 0% 3%;
   --sidebar-foreground: 0 0% 95%;
   --sidebar-primary: 0 0% 98%;
   --sidebar-primary-foreground: 0 0% 5%;
   --sidebar-accent: 0 0% 10%;
   --sidebar-accent-foreground: 0 0% 95%;
-  --sidebar-border: 0 0% 14%;
+  --sidebar-border: 0 0% 100%;
   --sidebar-ring: 0 0% 60%;
 }
 
 .dark {
-  --background: 0 0% 4%;
-  --foreground: 0 0% 98%;
+  --background: 0 0% 3%;
+  --foreground: 0 0% 97%;
 }
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    border-color: hsl(0 0% 100% / 0.08);
   }
 
   body {
@@ -123,9 +127,9 @@
     -webkit-font-smoothing: antialiased;
     font-family: 'Inter', sans-serif;
     background-image:
-      radial-gradient(ellipse 60% 40% at 20% 0%, hsl(var(--neon-cyan) / 0.10), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 10%, hsl(var(--neon-pink) / 0.10), transparent 60%),
-      radial-gradient(ellipse 80% 50% at 50% 100%, hsl(var(--neon-purple) / 0.06), transparent 60%);
+      radial-gradient(ellipse 70% 45% at 15% -5%, hsl(0 0% 100% / 0.10), transparent 65%),
+      radial-gradient(ellipse 60% 40% at 90% 8%, hsl(0 0% 100% / 0.06), transparent 65%),
+      radial-gradient(ellipse 90% 55% at 50% 105%, hsl(0 0% 100% / 0.05), transparent 65%);
     background-attachment: fixed;
   }
 
@@ -139,6 +143,7 @@
     }
   }
 }
+
 
 @layer utilities {
   .font-display {
