@@ -30,10 +30,15 @@ const LockedStats = ({ averageDaily, totalMinutes, totalVideos }: LockedStatsPro
         <p className="text-xs font-display text-muted-foreground uppercase tracking-[0.2em] font-semibold">
           Tvůj náhled zdarma
         </p>
-        <div className="space-y-1">
-          <span className="block text-7xl sm:text-8xl font-display font-black gradient-text leading-none tracking-tighter blur-md select-none" style={{ filter: 'blur(8px)' }}>
+        <div className="space-y-1 relative">
+          <span
+            aria-hidden
+            className="block text-7xl sm:text-8xl font-display font-black gradient-text leading-none tracking-tighter select-none"
+            style={{ filter: 'blur(26px)', opacity: 0.5 }}
+          >
             {totalMinutes.toLocaleString()}
           </span>
+          <span className="sr-only">Zamčeno — počkej na odemčení pro zobrazení</span>
           <span className="block text-sm text-muted-foreground uppercase tracking-wide">
             minut na TikToku
           </span>
