@@ -126,8 +126,8 @@ const AsimocIndex = () => {
         {/* Header */}
         <header className="text-center mb-8 space-y-5 animate-fade-up">
           <div className="flex justify-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-neon-pink/40 bg-card/60 px-3 py-1.5 text-[11px] font-display font-semibold text-foreground/90">
-              <Flame className="h-3.5 w-3.5 text-neon-pink" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-card/60 px-3 py-1.5 text-[11px] font-display font-semibold text-foreground/90">
+              <Flame className="h-3.5 w-3.5 text-foreground/70" />
               <span className="text-brand-gradient">Zjisti pravdu</span>
             </span>
           </div>
@@ -163,7 +163,7 @@ const AsimocIndex = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, rgba(0,200,255,0.15), transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%)',
                   filter: 'blur(60px)',
                 }}
               />
@@ -173,24 +173,24 @@ const AsimocIndex = () => {
                   maxWidth: '380px',
                   borderRadius: '40px',
                   padding: '16px',
-                  background: 'linear-gradient(145deg, #0d0d0d, #1a1a1a)',
+                  background: 'linear-gradient(150deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))',
                   border: '1px solid rgba(255,255,255,0.08)',
                   boxShadow:
-                    '0 0 40px rgba(0,255,255,0.15), 0 0 80px rgba(255,0,128,0.1), 0 0 120px rgba(100,0,255,0.08)',
+                    'inset 0 1px 0 rgba(255,255,255,0.14), 0 40px 100px -40px rgba(0,0,0,0.95), 0 0 80px rgba(255,255,255,0.05)',
                 }}
               >
                 <div className="relative">
                   <div className="card-neon-frame">
                     <div className="inner p-5 space-y-4">
                       <div className="flex items-center gap-2">
-                        <Sparkles className="h-4 w-4 text-neon-purple" />
+                        <Sparkles className="h-4 w-4 text-foreground/60" />
                         <span className="font-display font-semibold text-foreground text-sm">Tvoje realita</span>
                       </div>
-                      <div className="rounded-2xl border border-neon-pink/30 bg-card/60 p-4">
+                      <div className="rounded-2xl border border-white/10 bg-card/60 p-4">
                         <p className="text-xs text-muted-foreground">Zhlédnutých videí</p>
                         <p className="text-4xl font-display font-black text-foreground tracking-tight mt-1">247 391</p>
                         <svg viewBox="0 0 200 40" className="w-full h-10 mt-2">
-                          <path d="M0 30 Q 25 18, 50 22 T 100 14 T 150 18 T 200 8" stroke="hsl(var(--neon-pink))" strokeWidth="2" fill="none" />
+                          <path d="M0 30 Q 25 18, 50 22 T 100 14 T 150 18 T 200 8" stroke="hsl(0 0% 92%)" strokeWidth="2" fill="none" />
                         </svg>
                       </div>
                       <div className="grid grid-cols-2 gap-3">
@@ -204,7 +204,7 @@ const AsimocIndex = () => {
                         </div>
                         <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
                           <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Nejdelší session</p>
-                          <p className="text-xl font-display font-bold text-foreground mt-1" style={{color:'hsl(var(--neon-purple))'}}>6h 12m</p>
+                          <p className="text-xl font-display font-bold text-foreground mt-1" style={{color:'hsl(0 0% 60%)'}}>6h 12m</p>
                         </div>
                         <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
                           <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Top scroller</p>
@@ -231,9 +231,9 @@ const AsimocIndex = () => {
             {/* Trust row */}
             <div className="mt-10 grid grid-cols-3 gap-3 text-center">
               {[
-                { icon: Shield, color: 'text-neon-cyan', title: '100% soukromé', desc: 'Data nikde neukládáme.' },
-                { icon: Zap, color: 'text-neon-pink', title: 'Okamžité výsledky', desc: 'Přehled hned.' },
-                { icon: Smile, color: 'text-neon-cyan', title: 'Otevři oči', desc: 'Čísla, co překvapí.' },
+                { icon: Shield, color: 'text-foreground/90', title: '100% soukromé', desc: 'Data nikde neukládáme.' },
+                { icon: Zap, color: 'text-foreground/70', title: 'Okamžité výsledky', desc: 'Přehled hned.' },
+                { icon: Smile, color: 'text-foreground/90', title: 'Otevři oči', desc: 'Čísla, co překvapí.' },
               ].map((t) => (
                 <div key={t.title} className="space-y-2">
                   <t.icon className={`h-6 w-6 mx-auto ${t.color}`} strokeWidth={1.5} />
@@ -250,9 +250,9 @@ const AsimocIndex = () => {
               </p>
               <div className="space-y-2.5">
                 {[
-                  { n: '1', icon: Download, label: 'Stáhni TikTok data', color: 'hsl(var(--neon-cyan))' },
-                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor', color: 'hsl(var(--neon-pink))' },
-                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats', color: 'hsl(var(--neon-purple))' },
+                  { n: '1', icon: Download, label: 'Stáhni TikTok data', color: 'hsl(0 0% 96%)' },
+                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor', color: 'hsl(0 0% 78%)' },
+                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats', color: 'hsl(0 0% 60%)' },
                 ].map((s) => (
                   <div key={s.n} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card/50 p-3.5">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-display font-bold text-background" style={{ background: s.color }}>
@@ -267,7 +267,7 @@ const AsimocIndex = () => {
 
             {/* Social proof */}
             <div className="mt-12 text-center space-y-2">
-              <div className="flex justify-center gap-0.5 text-[hsl(45_100%_60%)] text-base">★★★★★</div>
+              <div className="flex justify-center gap-0.5 text-foreground/85 text-base">★★★★★</div>
               <p className="text-sm text-muted-foreground">
                 Připojilo se už <span className="text-brand-gradient font-display font-bold">50 000+</span> lidí
               </p>
@@ -277,7 +277,7 @@ const AsimocIndex = () => {
             <div className="mt-10">
               <button
                 onClick={() => setShowDemo(true)}
-                className="group w-full relative overflow-hidden rounded-2xl border border-border/60 hover:border-neon-cyan/40 transition-all duration-300 p-4 bg-card/40"
+                className="group w-full relative overflow-hidden rounded-2xl border border-border/60 hover:border-white/25 transition-all duration-300 p-4 bg-card/40"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted border border-border/60">
@@ -297,7 +297,7 @@ const AsimocIndex = () => {
             </div>
 
             {/* Final conversion CTA */}
-            <div className="mt-12 rounded-3xl border border-neon-pink/30 bg-card/40 p-5 text-center space-y-4">
+            <div className="mt-12 rounded-3xl border border-white/10 bg-card/40 p-5 text-center space-y-4">
               <h3 className="text-xl font-display font-bold text-foreground">
                 Jsi připraven zjistit svou <span className="text-pink-glow">realitu</span>?
               </h3>
