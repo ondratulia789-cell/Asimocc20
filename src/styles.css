@@ -166,8 +166,8 @@
     text-shadow: 0 0 24px hsl(0 0% 100% / 0.35);
   }
   .text-pink-glow {
-    color: hsl(0 0% 78%);
-    text-shadow: 0 0 24px hsl(0 0% 100% / 0.25);
+    color: var(--blue-soft);
+    text-shadow: 0 0 26px rgb(0 19 222 / 0.55);
   }
   .text-brand-gradient {
     background: var(--gradient-brand);
@@ -374,9 +374,9 @@
     background: linear-gradient(160deg, hsl(0 0% 8%), hsl(0 0% 3%));
     border: 1px solid hsl(0 0% 100% / 0.06);
     box-shadow:
-      -22px 0 60px -8px hsl(var(--neon-cyan) / 0.45),
+      -22px 0 60px -8px rgb(0 19 222 / 0.35),
       22px 0 60px -8px hsl(var(--neon-pink) / 0.5),
-      0 0 80px hsl(var(--neon-purple) / 0.2),
+      0 0 80px rgb(0 19 222 / 0.18),
       inset 0 0 0 1px hsl(0 0% 100% / 0.04);
     -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%);
             mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%);
