@@ -217,7 +217,7 @@ const AsimocIndex = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(0,19,222,0.35), transparent 70%)',
                   filter: 'blur(60px)',
                 }}
               />
