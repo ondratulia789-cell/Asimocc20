@@ -353,7 +353,7 @@ const AsimocIndex = () => {
             <div className="mt-12 text-center space-y-2">
               <div className="flex justify-center gap-0.5 text-foreground/85 text-base">★★★★★</div>
               <p className="text-sm text-muted-foreground">
-                Připojilo se už <span className="text-brand-gradient font-display font-bold">50 000+</span> lidí
+                 Připojilo se už <span className="text-brand-gradient font-display font-bold">10 000+</span> lidí
               </p>
             </div>
 
