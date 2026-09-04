@@ -132,8 +132,8 @@
     font-family: 'Inter', sans-serif;
     background-image:
       radial-gradient(ellipse 70% 45% at 15% -5%, hsl(0 0% 100% / 0.10), transparent 65%),
-      radial-gradient(ellipse 60% 40% at 90% 8%, hsl(0 0% 100% / 0.06), transparent 65%),
-      radial-gradient(ellipse 90% 55% at 50% 105%, hsl(0 0% 100% / 0.05), transparent 65%);
+      radial-gradient(ellipse 55% 35% at 85% 6%, rgb(0 19 222 / 0.14), transparent 65%),
+      radial-gradient(ellipse 90% 55% at 50% 105%, rgb(0 19 222 / 0.10), transparent 65%);
     background-attachment: fixed;
   }
 
