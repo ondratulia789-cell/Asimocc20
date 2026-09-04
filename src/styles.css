@@ -382,3 +382,5 @@
     padding-bottom: 60px;
   }
 }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
