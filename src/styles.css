@@ -87,8 +87,13 @@
   --neon-pink: 0 0% 72%;
   --neon-purple: 0 0% 58%;
 
+  /* Electric blue accent — #0013de (+ lighter tints for glows on black) */
+  --blue: #0013de;
+  --blue-bright: #3355ff;
+  --blue-soft: #6d84ff;
+
   --gradient-text: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 55%));
-  --gradient-brand: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(0 0% 78%) 45%, hsl(0 0% 92%) 100%);
+  --gradient-brand: linear-gradient(135deg, var(--blue-soft) 0%, hsl(0 0% 96%) 40%, var(--blue-bright) 100%);
   --gradient-card: linear-gradient(150deg, hsl(0 0% 100% / 0.07) 0%, hsl(0 0% 100% / 0.02) 45%, hsl(0 0% 100% / 0.045) 100%);
   --gradient-soft-glow: radial-gradient(circle at 50% 0%, hsl(0 0% 100% / 0.10), transparent 70%);
 
@@ -127,8 +132,8 @@
     font-family: 'Inter', sans-serif;
     background-image:
       radial-gradient(ellipse 70% 45% at 15% -5%, hsl(0 0% 100% / 0.10), transparent 65%),
-      radial-gradient(ellipse 60% 40% at 90% 8%, hsl(0 0% 100% / 0.06), transparent 65%),
-      radial-gradient(ellipse 90% 55% at 50% 105%, hsl(0 0% 100% / 0.05), transparent 65%);
+      radial-gradient(ellipse 55% 35% at 85% 6%, rgb(0 19 222 / 0.14), transparent 65%),
+      radial-gradient(ellipse 90% 55% at 50% 105%, rgb(0 19 222 / 0.10), transparent 65%);
     background-attachment: fixed;
   }
 
@@ -161,8 +166,8 @@
     text-shadow: 0 0 24px hsl(0 0% 100% / 0.35);
   }
   .text-pink-glow {
-    color: hsl(0 0% 78%);
-    text-shadow: 0 0 24px hsl(0 0% 100% / 0.25);
+    color: var(--blue-soft);
+    text-shadow: 0 0 26px rgb(0 19 222 / 0.55);
   }
   .text-brand-gradient {
     background: var(--gradient-brand);
@@ -369,9 +374,9 @@
     background: linear-gradient(160deg, hsl(0 0% 8%), hsl(0 0% 3%));
     border: 1px solid hsl(0 0% 100% / 0.06);
     box-shadow:
-      -22px 0 60px -8px hsl(var(--neon-cyan) / 0.45),
+      -22px 0 60px -8px rgb(0 19 222 / 0.35),
       22px 0 60px -8px hsl(var(--neon-pink) / 0.5),
-      0 0 80px hsl(var(--neon-purple) / 0.2),
+      0 0 80px rgb(0 19 222 / 0.18),
       inset 0 0 0 1px hsl(0 0% 100% / 0.04);
     -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%);
             mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%);

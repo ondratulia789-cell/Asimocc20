@@ -217,7 +217,7 @@ const AsimocIndex = () => {
                 aria-hidden
                 className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(0,19,222,0.35), transparent 70%)',
                   filter: 'blur(60px)',
                 }}
               />
@@ -256,7 +256,7 @@ const AsimocIndex = () => {
                               <p className="text-xs text-muted-foreground">Zhlédnutých videí</p>
                               <p className="text-4xl font-display font-black text-foreground tracking-tight mt-1">{slide.videos}</p>
                               <svg viewBox="0 0 200 40" className="w-full h-10 mt-2">
-                                <path d={slide.spark} stroke="hsl(0 0% 92%)" strokeWidth="2" fill="none" />
+                                <path d={slide.spark} stroke="#3355ff" strokeWidth="2" fill="none" />
                               </svg>
                             </div>
                             <div className="grid grid-cols-2 gap-3">
@@ -289,7 +289,7 @@ const AsimocIndex = () => {
                             onClick={() => goToSlide(i)}
                             aria-label={`Slide ${i + 1}`}
                             className={`h-1.5 rounded-full transition-all duration-300 ${
-                              i === activeSlide ? 'w-5 bg-foreground' : 'w-1.5 bg-foreground/30'
+                              i === activeSlide ? 'w-5 bg-[#3355ff]' : 'w-1.5 bg-foreground/30'
                             }`}
                           />
                         ))}
