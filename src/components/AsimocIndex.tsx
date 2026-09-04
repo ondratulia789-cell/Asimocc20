@@ -23,11 +23,65 @@ import { Eye, Shield, Crown, Flame, Download, FileJson, Sparkles, Zap, Smile } f
 
 const STATS_KEY = "asimoc_stats";
 
+const previewSlides = [
+  {
+    title: "Lehký scroller",
+    videos: "38 214",
+    total: "214h",
+    daily: "35m",
+    session: "1h 08m",
+    top: "42 %",
+    spark: "M0 32 Q 25 30, 50 31 T 100 28 T 150 30 T 200 26",
+  },
+  {
+    title: "Průměrný uživatel",
+    videos: "96 480",
+    total: "512h",
+    daily: "1h 24m",
+    session: "2h 47m",
+    top: "18 %",
+    spark: "M0 30 Q 25 26, 50 28 T 100 22 T 150 24 T 200 18",
+  },
+  {
+    title: "Náročný scroller",
+    videos: "178 902",
+    total: "986h",
+    daily: "2h 41m",
+    session: "4h 33m",
+    top: "3 %",
+    spark: "M0 32 Q 25 22, 50 26 T 100 16 T 150 20 T 200 10",
+  },
+  {
+    title: "Závislák",
+    videos: "247 391",
+    total: "1 384h",
+    daily: "3h 24m",
+    session: "6h 12m",
+    top: "0.1 %",
+    spark: "M0 30 Q 25 18, 50 22 T 100 14 T 150 18 T 200 8",
+  },
+];
+
 const AsimocIndex = () => {
   const [stats, setStats] = useState<TikTokStats | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
   const uploadRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const handleSlideScroll = () => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const index = Math.round(el.scrollLeft / el.clientWidth);
+    setActiveSlide(Math.min(Math.max(index, 0), previewSlides.length - 1));
+  };
+
+  const goToSlide = (i: number) => {
+    const el = sliderRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
+  };
 
   const scrollToUpload = () => {
     uploadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -182,36 +236,66 @@ const AsimocIndex = () => {
                 <div className="relative">
                   <div className="card-neon-frame">
                     <div className="inner p-5 space-y-4">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-center gap-2">
                         <Sparkles className="h-4 w-4 text-foreground/60" />
-                        <span className="font-display font-semibold text-foreground text-sm">Tvoje realita</span>
+                        <span className="font-display font-semibold text-foreground text-sm">
+                          {previewSlides[activeSlide].title}
+                        </span>
                       </div>
-                      <div className="rounded-2xl border border-white/10 bg-card/60 p-4">
-                        <p className="text-xs text-muted-foreground">Zhlédnutých videí</p>
-                        <p className="text-4xl font-display font-black text-foreground tracking-tight mt-1">247 391</p>
-                        <svg viewBox="0 0 200 40" className="w-full h-10 mt-2">
-                          <path d="M0 30 Q 25 18, 50 22 T 100 14 T 150 18 T 200 8" stroke="hsl(0 0% 92%)" strokeWidth="2" fill="none" />
-                        </svg>
+
+                      {/* Swipeable slideshow */}
+                      <div
+                        ref={sliderRef}
+                        onScroll={handleSlideScroll}
+                        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-1"
+                        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                      >
+                        {previewSlides.map((slide) => (
+                          <div key={slide.title} className="w-full shrink-0 snap-center px-1 space-y-4">
+                            <div className="rounded-2xl border border-white/10 bg-card/60 p-4">
+                              <p className="text-xs text-muted-foreground">Zhlédnutých videí</p>
+                              <p className="text-4xl font-display font-black text-foreground tracking-tight mt-1">{slide.videos}</p>
+                              <svg viewBox="0 0 200 40" className="w-full h-10 mt-2">
+                                <path d={slide.spark} stroke="hsl(0 0% 92%)" strokeWidth="2" fill="none" />
+                              </svg>
+                            </div>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Celkový čas</p>
+                                <p className="text-xl font-display font-bold text-cyan-glow mt-1">{slide.total}</p>
+                              </div>
+                              <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Průměrně denně</p>
+                                <p className="text-xl font-display font-bold text-pink-glow mt-1">{slide.daily}</p>
+                              </div>
+                              <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Nejdelší session</p>
+                                <p className="text-xl font-display font-bold mt-1" style={{color:'hsl(0 0% 60%)'}}>{slide.session}</p>
+                              </div>
+                              <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
+                                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Top scroller</p>
+                                <p className="text-xl font-display font-bold text-cyan-glow mt-1">{slide.top}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Celkový čas</p>
-                          <p className="text-xl font-display font-bold text-cyan-glow mt-1">1 384h</p>
-                        </div>
-                        <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Průměrně denně</p>
-                          <p className="text-xl font-display font-bold text-pink-glow mt-1">3h 24m</p>
-                        </div>
-                        <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Nejdelší session</p>
-                          <p className="text-xl font-display font-bold text-foreground mt-1" style={{color:'hsl(0 0% 60%)'}}>6h 12m</p>
-                        </div>
-                        <div className="rounded-2xl border border-border/60 bg-card/60 p-3">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Top scroller</p>
-                          <p className="text-xl font-display font-bold text-cyan-glow mt-1">0.1 %</p>
-                        </div>
+
+                      {/* Dots */}
+                      <div className="flex justify-center gap-1.5 pt-1">
+                        {previewSlides.map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => goToSlide(i)}
+                            aria-label={`Slide ${i + 1}`}
+                            className={`h-1.5 rounded-full transition-all duration-300 ${
+                              i === activeSlide ? 'w-5 bg-foreground' : 'w-1.5 bg-foreground/30'
+                            }`}
+                          />
+                        ))}
                       </div>
-                      <p className="text-center text-[10px] text-muted-foreground/70 uppercase tracking-[0.2em] pt-1">
+
+                      <p className="text-center text-[10px] text-muted-foreground/70 uppercase tracking-[0.2em]">
                         Náhled — toto nejsou tvoje data
                       </p>
                     </div>
