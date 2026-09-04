@@ -23,11 +23,65 @@ import { Eye, Shield, Crown, Flame, Download, FileJson, Sparkles, Zap, Smile } f
 
 const STATS_KEY = "asimoc_stats";
 
+const previewSlides = [
+  {
+    title: "Lehký scroller",
+    videos: "38 214",
+    total: "214h",
+    daily: "35m",
+    session: "1h 08m",
+    top: "42 %",
+    spark: "M0 32 Q 25 30, 50 31 T 100 28 T 150 30 T 200 26",
+  },
+  {
+    title: "Průměrný uživatel",
+    videos: "96 480",
+    total: "512h",
+    daily: "1h 24m",
+    session: "2h 47m",
+    top: "18 %",
+    spark: "M0 30 Q 25 26, 50 28 T 100 22 T 150 24 T 200 18",
+  },
+  {
+    title: "Náročný scroller",
+    videos: "178 902",
+    total: "986h",
+    daily: "2h 41m",
+    session: "4h 33m",
+    top: "3 %",
+    spark: "M0 32 Q 25 22, 50 26 T 100 16 T 150 20 T 200 10",
+  },
+  {
+    title: "Závislák",
+    videos: "247 391",
+    total: "1 384h",
+    daily: "3h 24m",
+    session: "6h 12m",
+    top: "0.1 %",
+    spark: "M0 30 Q 25 18, 50 22 T 100 14 T 150 18 T 200 8",
+  },
+];
+
 const AsimocIndex = () => {
   const [stats, setStats] = useState<TikTokStats | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
   const uploadRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const handleSlideScroll = () => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const index = Math.round(el.scrollLeft / el.clientWidth);
+    setActiveSlide(Math.min(Math.max(index, 0), previewSlides.length - 1));
+  };
+
+  const goToSlide = (i: number) => {
+    const el = sliderRef.current;
+    if (!el) return;
+    el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
+  };
 
   const scrollToUpload = () => {
     uploadRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
