@@ -491,7 +491,7 @@ const AsimocIndex = () => {
                 {/* Locked Premium teaser */}
                 <ExtremeMetrics stats={stats} locked />
                 <div className="section-divider" />
-                <PricingTiers currentTier="standard" />
+                <PricingTiers currentTier={tier} />
               </>
             )}
           </div>
