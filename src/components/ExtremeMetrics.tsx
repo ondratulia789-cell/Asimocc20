@@ -127,7 +127,7 @@ const ExtremeMetrics = ({ stats, locked = false }: ExtremeMetricsProps) => {
 
       {locked && (
         <a
-          href="https://buy.stripe.com/cNi14ndL1c4mgTNgvlebu00?utm=premium"
+          href="https://buy.stripe.com/cNi28rdL1c4m0UPgvlebu07"
           className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-foreground text-background py-3 text-sm font-display font-bold hover:opacity-90 transition"
         >
           <Lock className="h-4 w-4" />

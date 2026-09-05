@@ -6,8 +6,11 @@ interface PricingTiersProps {
   onSelect?: (tier: "standard" | "premium") => void;
 }
 
-// Stejný Stripe link prozatím pro oba tiery (bude nahrazeno).
-const STRIPE_URL = "https://buy.stripe.com/cNi14ndL1c4mgTNgvlebu00";
+// Každá úroveň má vlastní Stripe Payment Link — v jeho nastavení na Stripe
+// je po platbě nastaveno přesměrování (success URL) na ?payment=standard,
+// respektive ?payment=premium. Viz usePaywall.ts.
+const STRIPE_STANDARD_URL = "https://buy.stripe.com/cNi14ndL1c4mgTNgvlebu00";
+const STRIPE_PREMIUM_URL = "https://buy.stripe.com/cNi28rdL1c4m0UPgvlebu07";
 
 const tiers = [
   {
@@ -37,7 +40,7 @@ const tiers = [
       "Posledních 30 dní",
       "Standardní sdílecí karta",
     ],
-    cta: { label: "Odemknout Standard", url: `${STRIPE_URL}?utm=standard`, mark: "standard" as const },
+    cta: { label: "Odemknout Standard", url: STRIPE_STANDARD_URL, mark: "standard" as const },
     accent: true,
   },
   {
@@ -55,7 +58,7 @@ const tiers = [
       "🧠 Dopamine rating",
       "📱 Premium 9:16 karta na Stories",
     ],
-    cta: { label: "Odemknout Premium", url: `${STRIPE_URL}?utm=premium`, mark: "premium" as const },
+    cta: { label: "Odemknout Premium", url: STRIPE_PREMIUM_URL, mark: "premium" as const },
     accent: false,
     crown: true,
   },
