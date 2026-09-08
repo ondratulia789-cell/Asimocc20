@@ -52,7 +52,7 @@ const Records = ({ recordDay, recordDayMinutes }: RecordsProps) => {
           return (
             <div
               key={i}
-              className="relative rounded-2xl border border-border/60 bg-card/40 p-6 text-center overflow-hidden"
+              className="relative rounded-2xl card-blue p-6 text-center overflow-hidden"
             >
               <div className="relative space-y-3">
                 <Icon className="h-4 w-4 mx-auto text-foreground/60" />

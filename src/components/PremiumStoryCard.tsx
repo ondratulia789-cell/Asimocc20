@@ -183,7 +183,7 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
 
       <button
         onClick={handleDownload}
-        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-foreground text-background py-3 text-sm font-display font-bold hover:opacity-90 transition"
+        className="w-full inline-flex items-center justify-center gap-2 rounded-xl btn-brand py-3 text-sm font-display font-bold"
       >
         <Download className="h-4 w-4" />
         Stáhnout 1080×1920 PNG

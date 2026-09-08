@@ -66,7 +66,7 @@ const LockedStats = ({ averageDaily, totalMinutes, totalVideos }: LockedStatsPro
         ].map((item, i) => {
           const Icon = item.icon;
           return (
-            <div key={i} className="rounded-xl border border-border/60 bg-card/40 p-3 text-center space-y-1">
+            <div key={i} className="rounded-xl card-blue p-3 text-center space-y-1">
               <Icon className="w-3.5 h-3.5 mx-auto text-foreground/60" />
               <p className={`text-sm font-display font-bold text-foreground ${item.blur ? 'blur-sm select-none' : ''}`}>
                 {item.value}
