@@ -334,12 +334,19 @@ const AsimocIndex = () => {
               </p>
               <div className="space-y-2.5">
                 {[
-                  { n: '1', icon: Download, label: 'Stáhni TikTok data', color: 'hsl(0 0% 96%)' },
-                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor', color: 'hsl(0 0% 78%)' },
-                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats', color: 'hsl(0 0% 60%)' },
+                  { n: '1', icon: Download, label: 'Stáhni TikTok data' },
+                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor' },
+                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats' },
                 ].map((s) => (
                   <div key={s.n} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card/50 p-3.5">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-display font-bold text-background" style={{ background: s.color }}>
+                    <span
+                      className="relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-display font-bold text-foreground/90"
+                      style={{
+                        background: 'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))',
+                        border: '1px solid rgba(255,255,255,0.14)',
+                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 14px -4px rgba(0,19,222,0.35)',
+                      }}
+                    >
                       {s.n}
                     </span>
                     <s.icon className="h-4 w-4 text-muted-foreground" />
