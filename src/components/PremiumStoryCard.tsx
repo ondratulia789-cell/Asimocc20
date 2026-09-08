@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Download, Share2, Sparkles } from "lucide-react";
 import { TikTokStats } from "@/lib/tiktokParser";
 import { cn } from "@/lib/utils";
@@ -17,12 +17,23 @@ const formatN = (n: number) => new Intl.NumberFormat("cs-CZ").format(n);
 
 const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
   const [theme, setTheme] = useState(themes[0]);
+  const [busy, setBusy] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const h2cRef = useRef<any>(null);
 
   const days = (stats.totalMinutes / 60 / 24).toFixed(1);
 
+  // Předem načteme knihovnu, aby sdílení proběhlo v rámci kliknutí (iOS)
+  useEffect(() => {
+    import("html2canvas").then((m) => {
+      h2cRef.current = m.default;
+    });
+  }, []);
+
   const handleDownload = async () => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || busy) return;
+    setBusy(true);
+    try {
     const clone = cardRef.current.cloneNode(true) as HTMLDivElement;
     clone.style.position = "fixed";
     clone.style.left = "-9999px";
