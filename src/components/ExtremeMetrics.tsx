@@ -59,10 +59,10 @@ const ExtremeMetrics = ({ stats, locked = false }: ExtremeMetricsProps) => {
 
       {/* Dopamine rating — hero card */}
       <div className={cn(
-        "relative rounded-2xl border border-foreground/15 bg-card/60 p-6 overflow-hidden",
+        "relative rounded-2xl card-blue p-6 overflow-hidden",
         locked && "select-none"
       )}>
-        <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-foreground/5 blur-3xl" />
+        <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-[#0013de]/25 blur-3xl" />
         <div className="relative space-y-3">
           <div className="flex items-center gap-2">
             <Zap className="h-3.5 w-3.5 text-foreground/70" />
@@ -128,7 +128,7 @@ const ExtremeMetrics = ({ stats, locked = false }: ExtremeMetricsProps) => {
       {locked && (
         <a
           href="https://buy.stripe.com/cNi28rdL1c4m0UPgvlebu07"
-          className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-foreground text-background py-3 text-sm font-display font-bold hover:opacity-90 transition"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl btn-brand py-3 text-sm font-display font-bold"
         >
           <Lock className="h-4 w-4" />
           Odemknout Premium · 149 Kč

@@ -9,7 +9,7 @@ const blur = "blur-[6px] select-none pointer-events-none";
 
 const DemoStatsPage = ({ onBack }: DemoStatsPageProps) => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen page-glow">
       <div className="mx-auto max-w-md px-5 py-14">
         {/* Header */}
         <header className="text-center mb-8 space-y-3">
@@ -35,7 +35,7 @@ const DemoStatsPage = ({ onBack }: DemoStatsPageProps) => {
               </p>
               <button
                 onClick={onBack}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90 transition mt-1"
+                className="inline-flex items-center gap-2 rounded-full btn-brand px-4 py-2 text-xs font-semibold mt-1"
               >
                 <Upload className="h-3.5 w-3.5" />
                 Nahrát svá data
@@ -67,7 +67,7 @@ const DemoStatsPage = ({ onBack }: DemoStatsPageProps) => {
                     disabled
                     className={cn(
                       "px-4 py-1.5 text-xs font-medium rounded-full",
-                      idx === 0 ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                      idx === 0 ? "btn-brand" : "text-muted-foreground"
                     )}
                   >
                     {unit}
@@ -143,7 +143,7 @@ const DemoStatsPage = ({ onBack }: DemoStatsPageProps) => {
               Sdílecí obrázek
             </h3>
 
-            <div className="relative aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-2xl p-8 bg-gradient-to-br from-card via-background to-card border border-border/60">
+            <div className="relative aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-2xl p-8 card-blue">
               <div className="h-full flex flex-col text-center">
                 <div>
                   <h2 className="text-2xl font-display font-bold text-foreground/90">Asi Moc</h2>
@@ -184,7 +184,7 @@ const DemoStatsPage = ({ onBack }: DemoStatsPageProps) => {
         <div className="mt-12 text-center">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-display font-bold text-primary-foreground hover:opacity-90 transition"
+            className="inline-flex items-center gap-2 rounded-full btn-brand px-6 py-3 text-sm font-display font-bold"
           >
             <Upload className="h-4 w-4" />
             Nahrát svá TikTok data
