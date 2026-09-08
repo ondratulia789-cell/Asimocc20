@@ -88,7 +88,7 @@ const PricingTiers = ({ currentTier = "free" }: PricingTiersProps) => {
               className={cn(
                 "relative rounded-2xl border p-5 transition-all",
                 t.accent
-                  ? "border-foreground/30 bg-card/60 shadow-[0_0_0_1px_hsl(0_0%_100%/0.06),0_8px_32px_hsl(0_0%_0%/0.5)]"
+                  ? "card-blue shadow-[0_0_0_1px_rgba(0,19,222,0.25),0_8px_32px_hsl(0_0%_0%/0.5)]"
                   : "border-border/60 bg-card/40",
                 isCurrent && "ring-1 ring-foreground/40"
               )}
@@ -145,7 +145,7 @@ const PricingTiers = ({ currentTier = "free" }: PricingTiersProps) => {
                     className={cn(
                       "w-full inline-flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition",
                       t.accent || t.crown
-                        ? "bg-foreground text-background hover:opacity-90"
+                        ? "btn-brand"
                         : "border border-border bg-card hover:bg-accent text-foreground"
                     )}
                   >
