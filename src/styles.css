@@ -389,3 +389,32 @@
 }
 
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+@layer utilities {
+  /* Sjednocený podklad pro všechny stránky (demo, placené) */
+  .page-glow {
+    position: relative;
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(ellipse 70% 45% at 15% -5%, hsl(0 0% 100% / 0.08), transparent 65%),
+      radial-gradient(ellipse 55% 35% at 85% 6%, rgb(0 19 222 / 0.14), transparent 65%),
+      radial-gradient(ellipse 90% 55% at 50% 105%, rgb(0 19 222 / 0.10), transparent 65%);
+    background-attachment: fixed;
+  }
+
+  .card-blue {
+    border: 1px solid rgb(90 110 255 / 0.18);
+    background:
+      radial-gradient(circle at 50% 0%, rgb(0 19 222 / 0.10), transparent 65%),
+      var(--gradient-card);
+    box-shadow: var(--shadow-card), 0 0 40px -18px rgb(0 19 222 / 0.55);
+  }
+
+  .text-blue-accent {
+    color: var(--blue-soft);
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 60px -20px rgb(0 19 222 / 0.65);
+  }
+}
