@@ -334,7 +334,7 @@ const AsimocIndex = () => {
               </p>
               <div className="space-y-2.5">
                 {[
-                  { n: '1', icon: Download, label: 'Stáhni TikTok data', hint: 'Profil → ⋮ (nebo Nastavení) → Účet → Stáhnout data → vyber „Soubor JSON“ a vyžádej si historii' },
+                  { n: '1', icon: Download, label: 'Stáhni TikTok data', hint: 'Profil →  ☰  →  Nastavení a soukromí → Účet → Stáhnout data → vyber „Soubor JSON“ a vyžádej si historii' },
                   { n: '2', icon: FileJson, label: 'Nahraj JSON soubor', hint: 'Počkej na e-mail od TikToku, rozbal .zip a nahraj soubor „Browsing History“' },
                   { n: '3', icon: Sparkles, label: 'Zjisti svoje stats', hint: 'Hotovo — tvoje reálná čísla se ukážou hned tady' },
                 ].map((s) => (
