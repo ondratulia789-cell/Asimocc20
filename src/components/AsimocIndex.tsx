@@ -334,13 +334,13 @@ const AsimocIndex = () => {
               </p>
               <div className="space-y-2.5">
                 {[
-                  { n: '1', icon: Download, label: 'Stáhni TikTok data' },
-                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor' },
-                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats' },
+                  { n: '1', icon: Download, label: 'Stáhni TikTok data', hint: 'Profil → ⋮ (nebo Nastavení) → Účet → Stáhnout data → vyber „Soubor JSON“ a vyžádej si historii' },
+                  { n: '2', icon: FileJson, label: 'Nahraj JSON soubor', hint: 'Počkej na e-mail od TikToku, rozbal .zip a nahraj soubor „Browsing History“' },
+                  { n: '3', icon: Sparkles, label: 'Zjisti svoje stats', hint: 'Hotovo — tvoje reálná čísla se ukážou hned tady' },
                 ].map((s) => (
-                  <div key={s.n} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-card/50 p-3.5">
+                  <div key={s.n} className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/50 p-3.5">
                     <span
-                      className="relative flex h-8 w-8 items-center justify-center rounded-full text-xs font-display font-bold text-foreground/90"
+                      className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-display font-bold text-foreground/90"
                       style={{
                         background: 'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02))',
                         border: '1px solid rgba(255,255,255,0.14)',
@@ -349,8 +349,11 @@ const AsimocIndex = () => {
                     >
                       {s.n}
                     </span>
-                    <s.icon className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-display font-medium text-foreground">{s.label}</span>
+                    <s.icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                    <div className="min-w-0">
+                      <p className="text-sm font-display font-medium text-foreground">{s.label}</p>
+                      <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground/70">{s.hint}</p>
+                    </div>
                   </div>
                 ))}
               </div>
