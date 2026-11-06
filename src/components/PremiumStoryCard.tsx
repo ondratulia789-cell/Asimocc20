@@ -1,73 +1,48 @@
-import { useEffect, useRef, useState } from "react";
-import { Download, Share2, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Download, Sparkles } from "lucide-react";
 import { TikTokStats } from "@/lib/tiktokParser";
 import { cn } from "@/lib/utils";
+import { renderStoryCard, shareOrDownload } from "@/lib/shareCanvas";
+import { toast } from "@/hooks/use-toast";
 
 interface PremiumStoryCardProps {
   stats: TikTokStats;
 }
 
-const themes = [
-  { id: "noir", label: "Noir", bg: "linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 60%, #0a0a0a 100%)", accent: "#ffffff" },
-  { id: "ember", label: "Ember", bg: "linear-gradient(160deg, #0a0a0a 0%, #2b1410 55%, #0a0a0a 100%)", accent: "#ff7a59" },
-  { id: "ocean", label: "Ocean", bg: "linear-gradient(160deg, #050818 0%, #0d1b3a 60%, #020410 100%)", accent: "#7cb1ff" },
+const themes: { id: string; label: string; stops: [number, string][]; accent: string }[] = [
+  { id: "noir", label: "Noir", stops: [[0, "#0a0a0a"], [0.6, "#1a1a1a"], [1, "#0a0a0a"]], accent: "#ffffff" },
+  { id: "ember", label: "Ember", stops: [[0, "#0a0a0a"], [0.55, "#2b1410"], [1, "#0a0a0a"]], accent: "#ff7a59" },
+  { id: "ocean", label: "Ocean", stops: [[0, "#050818"], [0.6, "#0d1b3a"], [1, "#020410"]], accent: "#7cb1ff" },
 ];
+
+const cssGradient = (stops: [number, string][]) =>
+  `linear-gradient(160deg, ${stops.map(([o, c]) => `${c} ${o * 100}%`).join(", ")})`;
 
 const formatN = (n: number) => new Intl.NumberFormat("cs-CZ").format(n);
 
 const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
   const [theme, setTheme] = useState(themes[0]);
-  const [busy, setBusy] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const h2cRef = useRef<any>(null);
 
   const days = (stats.totalMinutes / 60 / 24).toFixed(1);
 
-  // Předem načteme knihovnu, aby sdílení proběhlo v rámci kliknutí (iOS)
-  useEffect(() => {
-    import("html2canvas").then((m) => {
-      h2cRef.current = m.default;
-    });
-  }, []);
+  const [isExporting, setIsExporting] = useState(false);
 
+  // Export se kreslí přímo do canvasu v plném rozlišení 1080×1920
   const handleDownload = async () => {
-    if (!cardRef.current || busy) return;
-    setBusy(true);
+    setIsExporting(true);
     try {
-    const clone = cardRef.current.cloneNode(true) as HTMLDivElement;
-    clone.style.position = "fixed";
-    clone.style.left = "-9999px";
-    clone.style.top = "0";
-    clone.style.width = "1080px";
-    clone.style.height = "1920px";
-    clone.style.transform = "none";
-    document.body.appendChild(clone);
-
-    const { default: html2canvas } = await import("html2canvas");
-    const canvas = await html2canvas(clone, {
-      width: 1080,
-      height: 1920,
-      scale: 1,
-      useCORS: true,
-      backgroundColor: null,
-    });
-    document.body.removeChild(clone);
-
-    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/png"));
-    if (!blob) return;
-    const file = new File([blob], "asimoc-story.png", { type: "image/png" });
-
-    if (navigator.share && navigator.canShare?.({ files: [file] })) {
-      try {
-        await navigator.share({ title: "Moje TikTok statistiky", files: [file] });
-        return;
-      } catch {}
+      const blob = await renderStoryCard(stats, { bg: theme.stops, accent: theme.accent });
+      await shareOrDownload(blob, "asimoc-story-9x16.png");
+    } catch (e) {
+      console.error("[Asimoc] Story export failed:", e);
+      toast({
+        title: "Obrázek se nepodařilo vytvořit",
+        description: "Zkus to prosím znovu.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsExporting(false);
     }
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "asimoc-story-9x16.png";
-    link.click();
-    URL.revokeObjectURL(link.href);
   };
 
   return (
@@ -83,7 +58,7 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
           Premium karta na Stories
         </h3>
         <p className="text-xs text-muted-foreground">
-          Bez watermarku. Připravené pro TikTok / Reels / Snapchat.
+          Ve vysokém rozlišení. Připravené pro TikTok / Reels / Snapchat.
         </p>
       </div>
 
@@ -108,8 +83,7 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
       {/* 9:16 preview (scaled) */}
       <div className="mx-auto w-full max-w-[280px]">
         <div
-          ref={cardRef}
-          style={{ background: theme.bg, aspectRatio: "9/16" }}
+          style={{ background: cssGradient(theme.stops), aspectRatio: "9/16" }}
           className="relative w-full overflow-hidden rounded-3xl text-white"
         >
           {/* Decorative blobs */}
@@ -157,13 +131,13 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
                 <p className="text-xl font-display font-black">
                   {formatN(stats.opportunityCostCZK)}
                 </p>
-                <p className="text-[9px] uppercase tracking-wider opacity-60">Kč mimo</p>
+                <p className="text-[9px] uppercase tracking-wider opacity-60">Kč ušlý výdělek</p>
               </div>
               <div className="rounded-xl bg-white/5 border border-white/10 p-3">
                 <p className="text-xl font-display font-black">
-                  {stats.nightOwlMinutes}
+                  {formatN(stats.nightOwlMinutes)}
                 </p>
-                <p className="text-[9px] uppercase tracking-wider opacity-60">noční sova min</p>
+                <p className="text-[9px] uppercase tracking-wider opacity-60">min v noci (0–5 h)</p>
               </div>
               <div className="rounded-xl bg-white/5 border border-white/10 p-3">
                 <p className="text-xl font-display font-black">
@@ -194,10 +168,11 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
 
       <button
         onClick={handleDownload}
-        className="w-full inline-flex items-center justify-center gap-2 rounded-xl btn-brand py-3 text-sm font-display font-bold"
+        disabled={isExporting}
+        className="w-full inline-flex items-center justify-center gap-2 rounded-xl btn-brand py-3 text-sm font-display font-bold disabled:opacity-60"
       >
         <Download className="h-4 w-4" />
-        Stáhnout 1080×1920 PNG
+        {isExporting ? "Připravuji obrázek…" : "Stáhnout 1080×1920 PNG"}
       </button>
     </div>
   );

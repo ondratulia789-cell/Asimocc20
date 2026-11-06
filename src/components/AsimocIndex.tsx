@@ -88,30 +88,23 @@ const AsimocIndex = () => {
   };
 
   const [zobrazitFomo, setZobrazitFomo] = useState(false);
-  const [zbyvajiciCas, setZbyvajiciCas] = useState(300);
 
   const { tier, isStandard, isPremium } = usePaywall();
 
   useEffect(() => {
     const ulozene = sessionStorage.getItem(STATS_KEY);
-    if (ulozene) setStats(JSON.parse(ulozene));
+    if (!ulozene) return;
+    try {
+      setStats(JSON.parse(ulozene));
+    } catch {
+      sessionStorage.removeItem(STATS_KEY);
+    }
   }, []);
 
   // Scroll to top when view changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [stats, showDemo]);
-
-  useEffect(() => {
-    if (!zobrazitFomo) return;
-    const interval = setInterval(() => {
-      setZbyvajiciCas((cas) => {
-        if (cas <= 1) { clearInterval(interval); return 0; }
-        return cas - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [zobrazitFomo]);
 
   const handleFileUpload = async (file: File) => {
     setIsProcessing(true);
@@ -163,11 +156,11 @@ const AsimocIndex = () => {
   };
 
   const resetAll = () => {
-    sessionStorage.clear();
+    // Mažeme jen nahraná data – zaplacený přístup musí zůstat.
+    sessionStorage.removeItem(STATS_KEY);
     setStats(null);
     setShowDemo(false);
     setZobrazitFomo(false);
-    setZbyvajiciCas(300);
   };
 
   if (showDemo && !stats) {

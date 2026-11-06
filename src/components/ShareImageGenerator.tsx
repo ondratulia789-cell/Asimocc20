@@ -1,7 +1,8 @@
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Download, Share2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { renderSquareCard, shareOrDownload } from "@/lib/shareCanvas";
+import { toast } from "@/hooks/use-toast";
 
 interface ShareImageGeneratorProps {
   totalMinutes: number;
@@ -11,7 +12,7 @@ interface ShareImageGeneratorProps {
 }
 
 const formatNumber = (n: number) =>
-  new Intl.NumberFormat("en-US").format(n);
+  new Intl.NumberFormat("cs-CZ").format(n);
 
 /**
  * Slider 0–100
@@ -38,7 +39,6 @@ const ShareImageGenerator = ({
   averageDaily,
 }: ShareImageGeneratorProps) => {
   const [slider, setSlider] = useState(6); // výchozí tmavá šedá
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const viaColor = getViaColor(slider);
 
@@ -51,49 +51,30 @@ const ShareImageGenerator = ({
     textShadow: "0 1px 2px rgba(0,0,0,0.45)",
   };
 
-  // 📸 EXPORT
+  const [isExporting, setIsExporting] = useState(false);
+
+  // 📸 EXPORT – kreslí se přímo do canvasu (html2canvas neumí barvy z Tailwindu v4)
   const handleShare = async () => {
-    if (!cardRef.current) return;
-
-    const clone = cardRef.current.cloneNode(true) as HTMLDivElement;
-    clone.style.position = "fixed";
-    clone.style.left = "-9999px";
-    clone.style.top = "0";
-    clone.style.width = "360px";
-    clone.style.height = "360px";
-    clone.style.transform = "none";
-    document.body.appendChild(clone);
-
-    const { default: html2canvas } = await import("html2canvas");
-    const canvas = await html2canvas(clone, {
-      width: 360,
-      height: 360,
-      scale: 1080 / 360,
-      useCORS: true,
-      backgroundColor: null,
-    });
-
-    document.body.removeChild(clone);
-
-    const blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, "image/png")
-    );
-    if (!blob) return;
-
-    const file = new File([blob], "asimoc-tiktok-stats.png", { type: "image/png" });
-
-    if (navigator.share && navigator.canShare?.({ files: [file] })) {
-      try {
-        await navigator.share({ title: "Moje TikTok statistiky", files: [file] });
-        return;
-      } catch {}
+    setIsExporting(true);
+    try {
+      const blob = await renderSquareCard({
+        totalMinutes,
+        totalVideos,
+        longestSession,
+        averageDaily,
+        viaColor,
+      });
+      await shareOrDownload(blob, "asimoc-tiktok-stats.png");
+    } catch (e) {
+      console.error("[Asimoc] Share export failed:", e);
+      toast({
+        title: "Obrázek se nepodařilo vytvořit",
+        description: "Zkus to prosím znovu.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsExporting(false);
     }
-
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "asimoc-tiktok-stats.png";
-    link.click();
-    URL.revokeObjectURL(link.href);
   };
 
   return (
@@ -138,7 +119,6 @@ const ShareImageGenerator = ({
 
       {/* CARD */}
       <div
-        ref={cardRef}
         style={backgroundStyle}
         className="relative aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-2xl p-8"
       >
@@ -205,10 +185,11 @@ const ShareImageGenerator = ({
       {/* SHARE */}
       <button
         onClick={handleShare}
-        className="w-full flex items-center justify-center gap-2 rounded-xl py-3 font-medium bg-primary text-primary-foreground hover:opacity-90 transition"
+        disabled={isExporting}
+        className="w-full flex items-center justify-center gap-2 rounded-xl py-3 font-medium bg-primary text-primary-foreground hover:opacity-90 transition disabled:opacity-60"
       >
         <Download className="h-5 w-5" />
-        Sdílet / uložit obrázek
+        {isExporting ? "Připravuji obrázek…" : "Sdílet / uložit obrázek"}
       </button>
 
       {/* SLIDER CSS */}

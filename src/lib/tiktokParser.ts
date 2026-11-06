@@ -224,7 +224,8 @@ export function calculateStats(data: any): TikTokStats {
       
       if (Array.isArray(obj)) {
         // Check if this array contains video history items
-        if (obj.length > 0 && (obj[0].Date || obj[0].date || obj[0].Link || obj[0].VideoLink)) {
+        const first = obj[0];
+        if (first && typeof first === 'object' && (first.Date || first.date || first.Link || first.VideoLink)) {
           results.push(obj);
         }
         // Also search within array items
@@ -271,10 +272,12 @@ export function calculateStats(data: any): TikTokStats {
       if (timestamp < earliestTimestamp) earliestTimestamp = timestamp;
       if (timestamp > latestTimestamp) latestTimestamp = timestamp;
       
+      // Dny/měsíce počítáme v místním čase uživatele (stejně jako "noční sovu"),
+      // aby rekordní den odpovídal tomu, co uživatel zažil.
       const d = new Date(timestamp);
-      const year = d.getUTCFullYear();
-      const month = d.getUTCMonth();
-      const day = d.getUTCDate();
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      const day = d.getDate();
       return {
         timestamp,
         month,
@@ -360,11 +363,9 @@ export function calculateStats(data: any): TikTokStats {
     dailyVideoCount[r.dayKey] = (dailyVideoCount[r.dayKey] || 0) + 1;
 
     const d = new Date(r.timestamp);
-    // ISO week calculation
-    const jan4 = new Date(Date.UTC(d.getUTCFullYear(), 0, 4));
-    const dayOfYear = Math.floor((d.getTime() - new Date(Date.UTC(d.getUTCFullYear(), 0, 1)).getTime()) / 86400000);
-    const weekNum = Math.ceil((dayOfYear + jan4.getUTCDay() + 1) / 7);
-    const weekKey = `${d.getUTCFullYear()}-W${weekNum}`;
+    // Týden = pondělí, ke kterému záznam patří (místní čas)
+    const monday = new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7));
+    const weekKey = `${monday.getFullYear()}-${monday.getMonth()}-${monday.getDate()}`;
     
     if (!weeklyVideoCount[weekKey]) {
       weeklyVideoCount[weekKey] = { count: 0, dates: [] };
@@ -384,7 +385,7 @@ export function calculateStats(data: any): TikTokStats {
   }
   // Convert dayKey back to date
   const [ry, rm, rd] = recordDayKey.split('-').map(Number);
-  const recordDayDate = new Date(Date.UTC(ry, rm, rd));
+  const recordDayDate = recordDayKey ? new Date(ry, rm, rd, 12) : new Date();
 
   // Find record week
   let recordWeekKey = '';
@@ -397,8 +398,9 @@ export function calculateStats(data: any): TikTokStats {
   }
   const recordWeekData = weeklyVideoCount[recordWeekKey];
   const weekDates = recordWeekData?.dates || [];
-  const weekStart = weekDates.length > 0 ? new Date(Math.min(...weekDates.map(d => d.getTime()))) : new Date();
-  const weekEnd = weekDates.length > 0 ? new Date(Math.max(...weekDates.map(d => d.getTime()))) : new Date();
+  // reduce místo Math.min(...spread) – spread u velkých polí shodí zásobník
+  const weekStart = weekDates.length > 0 ? weekDates.reduce((a, b) => (b < a ? b : a)) : new Date();
+  const weekEnd = weekDates.length > 0 ? weekDates.reduce((a, b) => (b > a ? b : a)) : new Date();
 
   // Find record day by minutes
   let recordDayMinutesKey = '';
@@ -410,11 +412,19 @@ export function calculateStats(data: any): TikTokStats {
     }
   }
   const [rmy, rmm, rmd] = recordDayMinutesKey.split('-').map(Number);
-  const recordDayMinutesDate = recordDayMinutesKey ? new Date(Date.UTC(rmy, rmm, rmd)) : new Date();
+  const recordDayMinutesDate = recordDayMinutesKey ? new Date(rmy, rmm, rmd, 12) : new Date();
 
-  // Average daily usage
-  const uniqueDays = Object.keys(dailySeconds).length;
-  const averageDaily = uniqueDays > 0 ? totalMinutes / uniqueDays : 0;
+  // Denní průměr přes VŠECHNY kalendářní dny období (včetně dnů bez TikToku),
+  // ne jen přes dny, kdy uživatel scrolloval – jinak je průměr nadsazený.
+  let calendarDays = 0;
+  if (records.length > 0) {
+    const first = new Date(records[0].timestamp);
+    const last = new Date(records[records.length - 1].timestamp);
+    const firstDay = Date.UTC(first.getFullYear(), first.getMonth(), first.getDate());
+    const lastDay = Date.UTC(last.getFullYear(), last.getMonth(), last.getDate());
+    calendarDays = Math.round((lastDay - firstDay) / 86400000) + 1;
+  }
+  const averageDaily = calendarDays > 0 ? totalMinutes / calendarDays : 0;
 
   // Last 30 days stats
   const now = latestTimestamp !== 0 ? latestTimestamp : Date.now();

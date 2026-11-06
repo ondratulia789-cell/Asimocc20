@@ -42,8 +42,14 @@ const LiveTicker = () => {
   const [generation, setGeneration] = useState(0);
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  // Náhodný obsah generujeme až v prohlížeči – jinak se liší od SSR (React error #418).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  const notifications = useMemo(() => generateNotifications(generation), [generation]);
+  const notifications = useMemo(
+    () => (mounted ? generateNotifications(generation) : []),
+    [generation, mounted],
+  );
 
   useEffect(() => {
     const refresh = setInterval(() => setGeneration((g) => g + 1), 5 * 60 * 1000);
@@ -51,6 +57,7 @@ const LiveTicker = () => {
   }, []);
 
   useEffect(() => {
+    if (notifications.length === 0) return;
     const cycle = setInterval(() => {
       setVisible(false);
       setTimeout(() => {

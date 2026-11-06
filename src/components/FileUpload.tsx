@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,10 +29,13 @@ const FileUpload = ({ onFileUpload, isProcessing }: FileUploadProps) => {
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    // Vynulovat, aby šel stejný soubor nahrát znovu (jinak onChange nevystřelí)
+    e.target.value = '';
     if (file) onFileUpload(file);
   }, [onFileUpload]);
 
-  const handleClick = () => document.getElementById('file-input')?.click();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleClick = () => inputRef.current?.click();
 
   return (
     <div
@@ -57,7 +60,7 @@ const FileUpload = ({ onFileUpload, isProcessing }: FileUploadProps) => {
       </button>
 
       <input
-        id="file-input"
+        ref={inputRef}
         type="file"
         accept=".json,.zip,.txt,text/plain,application/json,application/zip"
         onChange={handleFileChange}
