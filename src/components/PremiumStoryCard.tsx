@@ -68,6 +68,9 @@ const PremiumStoryCard = ({ stats }: PremiumStoryCardProps) => {
     link.download = "asimoc-story-9x16.png";
     link.click();
     URL.revokeObjectURL(link.href);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
