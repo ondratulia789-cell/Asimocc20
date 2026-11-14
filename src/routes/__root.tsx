@@ -10,6 +10,7 @@ import {
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import LiveTicker from "@/components/LiveTicker";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 
@@ -126,6 +127,7 @@ function RootComponent() {
         <Sonner />
         <LiveTicker />
         <Outlet />
+        <Analytics />
       </TooltipProvider>
     </QueryClientProvider>
   );
